@@ -1,0 +1,20 @@
+<div class="containter mt-5 mb-5">
+    <div class="row m-0">
+        <div class="col-lg-4" style="position: relative;" *ngFor="let fd of foodItems">
+            <div class="foodbox mt-3 mb-3">
+                <img src="{{fd.foodImg}}"/>
+                <h1>{{fd.foodName}}</h1>
+                <p>{{fd.foodDetails}}</p>
+            </div>
+            <br>
+            <br>
+            <div class="price">
+                <p>{{fd.foodPrice}}.00 RSD</p>
+            </div>
+            <div class="orderbtn">
+                <a>Naruči</a>
+            </div>
+
+        </div>
+    </div>
+</div> 

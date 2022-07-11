@@ -1,0 +1,48 @@
+.footer
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: sticky;
+    top: 100%;
+    background-color: orange;
+    padding: 5px 5px;
+}
+
+p 
+{
+
+    color: #000;
+    font-size: 12px;
+}
+a 
+{
+    color: #e3e3e3;
+    text-decoration: none;
+    padding: 0px 10px;
+    font-size: 17px;
+}
+
+.bi-instagram:hover{
+    color:#C13584;
+}
+
+.bi-youtube:hover{
+    color: #FF0000;
+}
+
+.bi-whatsapp:hover{
+    color: #128C7E;
+}
+
+
+.bi-facebook:hover 
+{
+    color: #4267B2;
+}
+
+i 
+{
+    padding: 0px 5px;
+} 
