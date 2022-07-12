@@ -5,13 +5,13 @@
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
               <div class="card-body p-1 p-md-3">
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Register in just a few steps</h3>
-                <form>
+                <form [formGroup]="registerForm">
     
                   <div class="row">
                     <div class="col-md-6 mb-4">
     
                       <div class="form-outline">
-                        <input type="text" id="firstName" class="form-control form-control-lg" />
+                        <input type="text" formControlName="Name" class="form-control form-control-lg" />
                         <label class="form-label" for="firstName">First name</label>
                       </div>
     
@@ -19,7 +19,7 @@
                     <div class="col-md-6 mb-4">
     
                       <div class="form-outline">
-                        <input type="text" id="lastName" class="form-control form-control-lg"/>
+                        <input type="text" formControlName="Lastname" class="form-control form-control-lg"/>
                         <label class="form-label" for="lastName">Last name</label>
                       </div>
     
@@ -30,7 +30,7 @@
                     <div class="col-md-6 mb-4 d-flex align-items-center">
     
                       <div class="form-outline datepicker w-100">
-                        <input type="date" class="form-control form-control-lg" id="birthdayDate"/>
+                        <input type="date" formControlName="BirthDate" class="form-control form-control-lg" id="birthdayDate"/>
                         <label for="birthdayDate" class="form-label">Date of birth</label>
                       </div>
     
@@ -38,7 +38,7 @@
                     <div class="col-md-6 mb-4 pb-2">
     
                         <div class="form-outline">
-                            <input type="text" id="homeAddress" class="form-control form-control-lg" />
+                            <input type="text" formControlName="Address" class="form-control form-control-lg" />
                             <label class="form-label" for="homeAddress">Address</label>
                         </div>
     
@@ -49,7 +49,7 @@
                     <div class="col-md-6 mb-4 pb-2">
     
                         <div class="form-outline">
-                            <input type="text" id="username" class="form-control form-control-lg" />
+                            <input type="text" formControlName="Username" class="form-control form-control-lg" />
                             <label class="form-label" for="username">Username</label>
                         </div>
     
@@ -57,7 +57,7 @@
                     <div class="col-md-6 mb-4 pb-2">
     
                         <div class="form-outline">
-                            <input type="email" id="emailAddress" class="form-control form-control-lg" />
+                            <input type="email" formControlName="Email" class="form-control form-control-lg" />
                             <label class="form-label" for="emailAddress">Email</label>
                         </div>
     
@@ -68,7 +68,7 @@
                     <div class="col-md-6 mb-4 pb-2">
     
                         <div class="form-outline">
-                            <input type="password" id="password" class="form-control form-control-lg" />
+                            <input type="password" formControlName="Password" class="form-control form-control-lg" />
                             <label class="form-label" for="password">Password</label>
                         </div>
     
@@ -86,7 +86,7 @@
                   <div class="row">
                     <div class="col-12">
     
-                      <select class="select form-control-lg">
+                      <select formControlName="Type" class="select form-control-lg">
                         <option value="0" disabled>Choose your role</option>
                         <option value="1">Customer</option>
                         <option value="2">Deliverer</option>
@@ -98,7 +98,7 @@
                   </div>
     
                   <div class="mt-4 pt-2">
-                    <input class="btn btn-primary btn-lg" type="submit" value="Register" />
+                    <button class="btn btn-primary btn-lg" (click)="onSubmit()" type="submit" >Register</button>
                   </div>
     
                 </form>

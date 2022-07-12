@@ -8,6 +8,11 @@ import { FooterComponent } from './shared/footer/footer/footer.component';
 import { HomeComponent } from './pages/home/home/home.component';
 import { MenuComponent } from './pages/menu/menu/menu.component';
 import { RegisterComponent } from './pages/register/register/register.component';
+import { UserService } from './shared/user.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,9 +25,18 @@ import { RegisterComponent } from './pages/register/register/register.component'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      progressBar: true
+    }),
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

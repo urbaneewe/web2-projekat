@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  serverURL: "https://localhost:44368",
+  allowedDomains:['localhost:44368'],
   production: false
 };
 
