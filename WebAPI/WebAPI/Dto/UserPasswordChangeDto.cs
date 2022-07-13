@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Dto
 {
-    public class UserLogInDto
+    public class UserPasswordChangeDto
     {
         [Required, RegularExpression("^(.+)@(.+)$")]
         public string Email { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string OldPassword { get; set; }
+        [Required]
+        public string NewPassword { get; set; }
     }
 }

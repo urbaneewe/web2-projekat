@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Dto
 {
-    public class UserLogInDto
+    public class OrderConfirmationDto
     {
+        [Required]
+        public long Id { get; set; }
         [Required, RegularExpression("^(.+)@(.+)$")]
         public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
     }
 }

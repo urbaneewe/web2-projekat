@@ -12,7 +12,11 @@ namespace WebAPI.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>().ReverseMap(); //Kazemo mu da mapira User na UserDto i obrnuto
+            CreateMap<User, UserDto>().ReverseMap(); //Mapira User na UserDto i obrnuto
+            CreateMap<Delivery, DeliveryDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Order, OrderDto>().ReverseMap();
+            CreateMap<ProductInOrder, ProductInOrderDto>().ReverseMap();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Models
 {
-    public enum UserType { Administrator = 0, Deliverer, Customer }
+    public enum UserType { Administrator = 0, Buyer, Delivery, Social }
     public class User
     {
         public string Username { get; set; }
@@ -16,6 +16,6 @@ namespace WebAPI.Models
         public DateTime BirthDate { get; set; }
         public string Address { get; set; }
         public UserType Type { get; set; }
-
+        public string ImagePath { get; set; }
     }
 }

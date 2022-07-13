@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.Models;
 
 namespace WebAPI.Dto
 {
-    public class UserDto
+    public class SocialLoginUserDto
     {
-        [Required]
-        public string Username { get; set; }
-        [Required]
-        public string Password { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -20,12 +15,10 @@ namespace WebAPI.Dto
         [Required, RegularExpression("^(.+)@(.+)$")]
         public string Email { get; set; }
         [Required]
-        public DateTime BirthDate { get; set; }
+        public string PhotoUrl { get; set; }
         [Required]
-        public string Address { get; set; }
+        public string Provider { get; set; }
         [Required]
-        public UserType Type { get; set; }
-
-        public string ImagePath { get; set; }
+        public string Id { get; set; }
     }
 }

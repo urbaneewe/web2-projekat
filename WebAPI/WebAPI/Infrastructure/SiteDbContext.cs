@@ -10,6 +10,10 @@ namespace WebAPI.Infrastructure
     public class SiteDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Delivery> Deliveries { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductInOrder> ProductInOrder { get; set; }
 
         public SiteDbContext(DbContextOptions options) : base(options)
         {
