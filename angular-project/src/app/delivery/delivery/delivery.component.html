@@ -1,0 +1,207 @@
+<ng-container *ngIf="this.status == 'Prihvacen';else denied">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{this.orderMess}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    &nbsp;&nbsp;&nbsp;{{panelOpenState ? 'hide' : 'show'}} orders
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="card-body p-md-3">
+                <div *ngIf="this.hasActiveOrder;else showUnconfirmedOrders">
+                    <div class="row">
+                        <div class="col-sm">
+                            Customer
+                        </div>
+                        <div class="col-sm">
+                            Address
+                        </div>
+                        <div class="col-sm">
+                            Time of order
+                        </div>
+                        <div class="col-sm">
+                            Time of delivery
+                        </div>
+                        <div class="col-sm">
+                            Product
+                        </div>
+                        <div class="col-sm">
+                            Total price
+                        </div>
+                        <div class="col-sm">
+                            Status
+                        </div>
+                        <div class="col-sm">
+                            Timer
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            {{this.activeOrder.buyerEmail}}
+                        </div>
+                        <div class="col-sm">
+                            {{this.activeOrder.address}}
+                        </div>
+                        <div class="col-sm">
+                            {{this.activeOrder.orderTime | customDate}}
+                        </div>
+                        <div class="col-sm">
+                            {{this.activeOrder.deliveryTime | customDate}}
+                        </div>
+                        <div class="col-sm">
+                            <ng-container *ngFor="let prod of activeOrder.productsInOrder">
+                                {{foodItemsMap.get(prod.productId)?.name!}}&nbsp;{{prod.quantity}}&nbsp;kom.<br />
+                            </ng-container>
+                        </div>
+                        <div class="col-sm">
+                            {{this.activeOrder.price}}
+                        </div>
+                        <div class="col-sm">
+                            Aktivna
+                        </div>
+                        <div class="col-sm">
+                            {{this.timerMin}}:{{this.timerSec}}
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #showUnconfirmedOrders>
+                    <div *ngIf="this.hasUnconfirmedOrders;else noOrders">
+                        <div class="row">
+                            <div class="col-sm">
+                                Customer
+                            </div>
+                            <div class="col-sm">
+                                Address
+                            </div>
+                            <div class="col-sm">
+                                Time of order
+                            </div>
+                            <div class="col-sm">
+                                Product
+                            </div>
+                            <div class="col-sm">
+                                Total price
+                            </div>
+                            <div class="col-sm">
+                                Status
+                            </div>
+                            <div class="col-sm">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let order of this.unconfirmedOrders">
+                            <div class="col-sm">
+                                {{order.buyerEmail}}
+                            </div>
+                            <div class="col-sm">
+                                {{order.address}}
+                            </div>
+                            <div class="col-sm">
+                                {{order.orderTime | customDate}}
+                            </div>
+                            <div class="col-sm">
+                                <ng-container *ngFor="let prod of order.productsInOrder">
+                                    {{foodItemsMap.get(prod.productId)?.name!}}&nbsp;{{prod.quantity}}&nbsp;kom.<br />
+                                </ng-container>
+                            </div>
+                            <div class="col-sm">
+                                {{order.price}}
+                            </div>
+                            <div class="col-sm">
+                                On hold
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary " (click)="takeOrder(order.id)"
+                                    type="submit">Accept</button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template #noOrders>
+                    <div>
+                        <p>&nbsp;No orders on hold</p>
+                    </div>
+                </ng-template>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState1 = true" (closed)="panelOpenState1 = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Order history
+                </mat-panel-title>
+                <mat-panel-description>
+                    &nbsp;&nbsp;&nbsp;{{panelOpenState1 ? 'hide' : 'show'}} order
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-container *ngIf="previousOrders.length; else noPreviousOrders">
+                <div class="card-body p-md-3">
+                    <div class="row">
+                        <div class="col-sm">
+                            Address
+                        </div>
+                        <div class="col-sm">
+                            Customer
+                        </div>
+                        <div class="col-sm">
+                            Time of order
+                        </div>
+                        <div class="col-sm">
+                            Time of delivery
+                        </div>
+                        <div class="col-sm">
+                            Product
+                        </div>
+                        <div class="col-sm">
+                            Total price
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let p of previousOrders">
+                        <div class="row">
+                            <div class="col-sm">
+                                {{p.address}}
+                            </div>
+                            <div class="col-sm">
+                                {{p.buyerEmail}}
+                            </div>
+                            <div class="col-sm">
+                                {{p.orderTime | customDate}}
+                            </div>
+                            <div class="col-sm">
+                                {{p.deliveryTime | customDate}}
+                            </div>
+                            <div class="col-sm">
+                                <ng-container *ngFor="let prod of p.productsInOrder">
+                                    {{foodItemsMap.get(prod.productId)?.name!}}&nbsp;{{prod.quantity}}&nbsp;kom.<br />
+                                </ng-container>
+                            </div>
+                            <div class="col-sm">
+                                {{p.price}}
+                            </div>
+                        </div>
+                    </ng-container>
+            
+            </div>
+        </ng-container>
+        <ng-template #noPreviousOrders>
+            <p>You don't have any previous orders</p>
+        </ng-template>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ng-container>
+
+<ng-template #denied>
+    <ng-container *ngIf="this.status == 'Reject'">
+        <br />
+        <p>&nbsp;Your request is rejected</p>
+    </ng-container>
+    <ng-container *ngIf="this.status == 'On hold'">
+        <br />
+        <p>&nbsp;Your request is on hold</p>
+    </ng-container>
+</ng-template>

@@ -1,0 +1,98 @@
+<script async defer src="https://apis.google.com/js/api.js"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light border" style="background-color: white;">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink=""><img src="assets/images/logo.png" width="150" height="80" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="" routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{exact:true}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active-link">Menu</a>
+        </li>
+
+        <div *ngIf="show; then True; else False"></div>
+        <ng-template #False>
+          <li class="nav-item">
+            <a href="" class="nav-link" data-toggle="dropdown" role="button"><b>Sign in&#x23F7;</b><span
+                class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="center">
+
+                        <button class="btn btn-facebook" style="color: white; background-color: blue;" (click)="externalLogin()">
+                          <i class="bi bi-facebook" style="color: white;"></i>
+                            Continue with facebook                    
+                        </button>
+
+                      </div>
+                  
+                    <div class="separator">or login with email</div>
+                    <form class="form" [formGroup]="loginForm" accept-charset="UTF-8" id="login-nav">
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                        <input type="email" class="form-control" formControlName="Email" placeholder="Email adresa"
+                          required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Password</label>
+                        <input type="password" class="form-control" formControlName="Password" placeholder="Password"
+                          required>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" (click)="onSubmit()" class="btn btn-primary btn-block">Log in</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="bottom text-center">
+                    Don't have an account? <a routerLink="register"><b>Register</b></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+        <ng-template #True>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="dropdown" role="button"><b>Profile&#x23F7;</b><span
+                class="caret"></span></a>
+            <ul id="logedin-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    <a routerLink="dashboard" class="dashboard-button nav-link" role="button">
+                      <div style="display: inline;">
+                        <img class="profile-img" style="object-fit:cover;" width="70" height="70"
+                          [src]='this.profilePicture' />
+                      </div>
+                      <div style="float:right;display: inline;padding-top: 10px;">
+                        {{this.name}}<br>
+                        Dashboard
+                      </div>
+                    </a>
+                  </div>
+                  <div class="separator"></div>
+                  <div class="col-md-12">
+                    <a href="" (click)="logOut()" class="dashboard-buttonbottom nav-link" role="button">
+                      <h5 style="width: fit-content; font-size: large;"><i style="width: auto;"
+                          class="bi bi-door-open-fill"></i>&nbsp;Log out
+                      </h5>
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

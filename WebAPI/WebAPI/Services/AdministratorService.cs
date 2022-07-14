@@ -16,8 +16,8 @@ namespace WebAPI.Services
         private readonly IMapper _mapper;
         private readonly SiteDbContext _dbContext;
         private readonly IEmailService _emailService;
-        private readonly string acceptedMessage = "Vaš zahtev je prihvaćen. Možete nastaviti sa korišćenjem usluga dostavljača.";
-        private readonly string declinedMessage = "Žao nam je, Vaš zahtev za nalog dostavljača je odbijen.";
+        private readonly string acceptedMessage = "Your request has been accepted.";
+        private readonly string declinedMessage = "Sorry, your request has been declined.";
 
         public AdministratorService(IMapper mapper, SiteDbContext dbContext, IEmailService emailService)
         {

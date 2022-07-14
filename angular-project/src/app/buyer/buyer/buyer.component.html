@@ -1,0 +1,215 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{this.orderMessage}} order
+            </mat-panel-title>
+            <mat-panel-description>
+                &nbsp;&nbsp;&nbsp;{{panelOpenState ? 'hide' : 'show'}} order
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="card-body p-md-3">
+         <div *ngIf="this.hasActiveOrder;else orderform">
+            <div class="row">
+                <div class="col-sm">
+                    Address
+                </div>
+                <div class="col-sm">
+                    Time of order
+                </div>
+                <ng-container *ngIf="this.activeOrder.deliveryEmail">
+                    <div class="col-sm">
+                        Time of delivery
+                    </div>
+                    <div class="col-sm">
+                        Deliverer
+                    </div>
+                </ng-container>
+                <div class="col-sm">
+                    Product
+                </div>
+                <div class="col-sm">
+                    Total price
+                </div>
+                <div class="col-sm">
+                    Status
+                </div>
+                <ng-container *ngIf="this.activeOrder.deliveryEmail">
+                    <div class="col-sm">
+                        Timer
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    {{this.activeOrder.address}}
+                </div>
+                <div class="col-sm">
+                    {{this.activeOrder.orderTime | customDate}}
+                </div>
+                <ng-container *ngIf="this.activeOrder.deliveryEmail">
+                    <div class="col-sm">
+                        {{this.activeOrder.deliveryTime | customDate}}
+                    </div>
+                    <div class="col-sm">
+                        {{this.activeOrder.deliveryEmail}}
+                    </div>
+                </ng-container>
+                <div class="col-sm">
+                    <ng-container *ngFor="let prod of activeOrder.productsInOrder">
+                        {{foodItemsMap.get(prod.productId)?.name!}}&nbsp;{{prod.quantity}}&nbsp;kom.<br/>
+                    </ng-container>
+                </div>
+                <div class="col-sm">
+                    {{this.activeOrder.price}}
+                </div>
+                <ng-container *ngIf="this.activeOrder.deliveryEmail;else inProgress">
+                    <div class="col-sm">
+                        Active
+                    </div>
+                    <div class="col-sm">
+                        {{this.timerMin}}:{{this.timerSec}}
+                    </div>
+                </ng-container>
+                <ng-template #inProgress>
+                    <div class="col-sm">
+                        On hold
+                    </div>
+                </ng-template>
+            </div>
+         </div>
+
+         <ng-template #orderform>
+            <div *ngIf="this.foodItemsAvailabe;else noFoodItems">
+                <form [formGroup]="newOrderForm">
+                    <div class="row">
+                        <div class="col-sm">
+                            Product
+                        </div>
+                        <div class="col-sm">
+                            Ingredients
+                        </div>
+                        <div class="col-sm">
+                            Price
+                        </div>
+                        <div class="col-sm">
+                            Amount
+                        </div>
+                    </div>
+                    <div *ngFor="let fd of foodItems">
+                        <div class="row">
+                            <div class="col-sm">
+                                {{foodItemsMap.get(fd.productId)!.name}}
+                            </div>
+                            <div class="col-sm">
+                                {{foodItemsMap.get(fd.productId)!.ingredients}}
+                            </div>
+                            <div class="col-sm">
+                                {{foodItemsMap.get(fd.productId)!.price}} RSD
+                            </div>
+                            <div class="col-sm">
+                                <input type="number" style="width: 50px;" step="1" min="0" value="0" oninput="this.value = Math.round(this.value);" [(ngModel)]="fd.quantity" [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <input type="text" value="test" formControlName="Address" class="form-control form-control-lg" />
+                            <label class="form-label" for="Address">Address</label>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" formControlName="Comment" class="form-control form-control-lg" />
+                            <label class="form-label" for="homeAddress">Comment</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                        </div>
+                        <div class="col-sm">
+                            <!--<p>{{priceDisplayValue}}</p>-->
+                            <div *ngIf="priceDisplayValue == 0;else regularButton" style="position: relative;">
+                                Total price: {{priceDisplayValue}}
+                                <button class="btn btn-primary btn-lg" (click)="onOrder()" disabled type="submit" >Order</button>
+                            </div>
+                            <ng-template #regularButton>
+                                Total price: {{priceDisplayValue}}
+                                <button class="btn btn-primary btn-lg" (click)="onOrder()" type="submit" >Order</button>
+                            </ng-template>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <ng-template #noFoodItems>
+                <p>There are no products to order!</p>
+            </ng-template>
+         </ng-template>
+        </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState1 = true"
+                         (closed)="panelOpenState1 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Order history  
+        </mat-panel-title>
+        <mat-panel-description>
+           &nbsp;&nbsp;&nbsp;{{panelOpenState1 ? 'hide' : 'show'}} orders   
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngIf="previousOrders.length; else noPreviousOrders">
+      <div class="card-body p-md-3">
+        <div class="row">
+            <div class="col-sm">
+                Address
+            </div>
+            <div class="col-sm">
+                Deliverer
+            </div>
+            <div class="col-sm">
+                Time of order
+            </div>
+            <div class="col-sm">
+                Time of delivery
+            </div>
+            <div class="col-sm">
+                Ordered product
+            </div>
+            <div class="col-sm">
+                Total price
+            </div>
+        </div>
+        <ng-container *ngFor="let p of previousOrders">
+            <div class="row">
+                <div class="col-sm">
+                    {{p.address}}
+                </div>
+                <div class="col-sm">
+                    {{p.deliveryEmail}}
+                </div>
+                <div class="col-sm">
+                    {{p.orderTime | customDate}}
+                </div>
+                <div class="col-sm">
+                    {{p.deliveryTime | customDate}}
+                </div>
+                <div class="col-sm">
+                    <ng-container *ngFor="let prod of p.productsInOrder">
+                        {{foodItemsMap.get(prod.productId)?.name!}}&nbsp;{{prod.quantity}}&nbsp;kom.<br/>
+                    </ng-container>
+                </div>
+                <div class="col-sm">
+                    {{p.price}}
+                </div>
+            </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-template #noPreviousOrders>
+        <p>No previous orders.</p>
+    </ng-template>
+    </mat-expansion-panel>
+</mat-accordion>

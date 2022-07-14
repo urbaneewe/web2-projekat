@@ -1,0 +1,25 @@
+<div class="containter mt-5 mb-5">
+    <div *ngIf="this.foodItemsAvailabe; else noFoodItems">
+        <div class="row m-0">
+            <div class="col-lg-4" style="position: relative;" *ngFor="let fd of foodItems">
+                <div class="foodbox mt-3 mb-3">
+                    <!-- <img src="{{fd.foodImg}}" /> -->
+                    <h1>{{fd.name}}</h1>
+                    <p>{{fd.ingredients}}</p>
+                </div>
+                <br>
+                <br>
+                <div class="price" >
+                    <p>{{fd.price}} RSD</p>
+                </div>
+                <div class="orderbtn" *ngIf="this.canPurchase">
+                    <a routerLink="/dashboard" routerLinkActive="active-link">Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noFoodItems>
+        <h1>All food has been eaten!</h1>
+    </ng-template>
+</div>

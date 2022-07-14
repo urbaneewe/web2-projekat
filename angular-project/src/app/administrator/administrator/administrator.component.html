@@ -1,0 +1,182 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Verification  
+        </mat-panel-title>
+        <mat-panel-description>
+           &nbsp;&nbsp;&nbsp;{{panelOpenState ? 'hide' : 'show'}} avaliable accounts    
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+<ng-template [ngIf]="deliveryUsers.length" [ngIfElse]="noDeliveryUsers">
+    <div class="row m-0">
+        <div *ngFor="let del of deliveryUsers">
+            <div class=" d-flex align-items-center">
+                <div class="col-lg-4" style="text-align: left; align-content: center; align-items: center;">
+                    <h3 style="margin: 0;">{{del.email}}</h3>
+                </div>  
+                <div class="col-lg-4">
+                    <div *ngIf="del.status == 0">
+                        <form>
+                            <button class="btn btn-primary btn-lg" style="background-color: green; height: 40px; padding: 3px;" (click)="onAllow(del.email)" type="submit" >Approve</button>
+                            &nbsp;
+                            <button class="btn btn-primary btn-lg" style="background-color: red; height: 40px; padding: 3px;" (click)="onDeny(del.email)" type="submit" >Reject</button>
+                        </form>
+                    </div>
+                    <div *ngIf="del.status == 1" style="flex: 1; display: flex; align-content: center; align-items: center;">
+                        <h3 style="color: green; margin: 0;">&nbsp;Approved&nbsp;&nbsp;&nbsp;</h3>
+                        <button class="btn btn-primary btn-lg" style="background-color: red; height: 40px; padding: 3px; margin: 0;" (click)="onDeny(del.email)" type="submit" >Reject</button>
+                    </div>
+                    <div *ngIf="del.status == 2" style="flex: 1; display: flex;">
+                        <h3 style="color: red;margin: 0;">&nbsp;Rejected&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                        <button class="btn btn-primary btn-lg" style="background-color: green; height: 40px; padding: 3px;" (click)="onAllow(del.email)" type="submit" >Approve</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #noDeliveryUsers>
+
+    <h1>No delivery users exists in system.</h1>
+    
+  </ng-template>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState1 = true"
+                         (closed)="panelOpenState1 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Add product  
+        </mat-panel-title>
+        <mat-panel-description>
+           &nbsp;&nbsp;&nbsp;{{panelOpenState1 ? 'hide' : 'show'}} form   
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="card-body p-md-3">
+        <form  [formGroup]="addNewProductForm">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-outline">
+                        <input type="text" formControlName="Name" class="form-control form-control-lg" />
+                        <label class="form-label" for="Name">Product name</label>
+                    </div>
+        
+                    <div class="form-outline">
+                        <input type="number" formControlName="Price" step=".1" class="form-control form-control-lg" />
+                        <label class="form-label" for="Price">Price</label>
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-outline">
+                        
+                        <textarea style="height: 125px;" formControlName="Ingredients" class="form-control form-control-lg"></textarea>
+                        <label class="form-label" for="Ingredients">Ingredients</label>
+                    </div>
+        
+                    <button class="btn btn-primary btn-lg" (click)="onSubmitAdd()" type="submit" >Add product</button>
+                </div>
+            </div>
+        </form>
+      </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState2 = true"
+                         (closed)="panelOpenState2 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            All orders  
+        </mat-panel-title>
+        <mat-panel-description>
+           &nbsp;&nbsp;&nbsp;{{panelOpenState2 ? 'hide' : 'show'}} orders   
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="card-body p-md-3">
+        <div class="row">
+            <div class="col-sm">
+                Customer
+            </div>
+            <div class="col-sm">
+                Address
+            </div>
+            <div class="col-sm">
+                Deliverer
+            </div>
+            <div class="col-sm">
+                Time of order
+            </div>
+            <div class="col-sm">
+                Time of delivery
+            </div>
+            <div class="col-sm">
+                Product
+            </div>
+            <div class="col-sm">
+                Total price
+            </div>
+            <div class="col-sm">
+                Status
+            </div>
+        </div>
+        <ng-container *ngFor="let p of orders">
+            <div class="row">
+                <div class="col-sm">
+                    {{p.buyerEmail}}
+                </div>
+                <div class="col-sm">
+                    {{p.address}}
+                </div>
+                <div class="col-sm">
+                    <ng-container *ngIf="p.deliveryEmail; else empty">
+                        {{p.deliveryEmail}}
+                    </ng-container>
+                </div>
+                <div class="col-sm">
+                    {{p.orderTime | customDate}}
+                </div>
+                <div class="col-sm">
+                    <ng-container *ngIf="p.deliveryEmail; else empty">
+                        {{p.deliveryTime | customDate}}
+                    </ng-container>
+                </div>
+                <div class="col-sm">
+                    <ng-container *ngFor="let prod of p.productsInOrder">
+                        {{foodItemsMap.get(prod.productId)?.name!}}&nbsp;{{prod.quantity}}&nbsp;kom.<br/>
+                    </ng-container>
+                </div>
+                <div class="col-sm">
+                    {{p.price}}
+                </div>
+                <div class="col-sm">
+                    <ng-container *ngIf="p.deliveryEmail; else inactive">
+                        {{statusMap.get(p.id)}}
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+      </div>
+      
+    <ng-template #empty>
+        <div class="col-sm">
+            
+        </div>
+    </ng-template>
+
+    <ng-template #inactive>
+        <div class="col-sm">
+            On hold
+        </div>
+    </ng-template>
+
+    <ng-template #active>
+        <div class="col-sm">
+            Active
+        </div>
+    </ng-template>
+
+    </mat-expansion-panel>
+</mat-accordion>

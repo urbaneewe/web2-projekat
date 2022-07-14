@@ -1,0 +1,191 @@
+<h1>Dashboard:</h1>
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Update profile  
+        </mat-panel-title>
+        <mat-panel-description>
+           &nbsp;&nbsp;&nbsp;{{panelOpenState ? 'hide' : 'show'}} information    
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        
+      <div class="card-body p-md-3">
+        <ng-container *ngIf="this.role != 'social';else socialUser">
+        <form  [formGroup]="changeUserForm">
+
+          <div class="row">
+
+            <div class="col-sm">
+                <img style="object-fit:cover;" width="450" height="450" [src]="this.profilePicture"/>
+            </div>
+
+            <div class="col-sm">
+
+              <div class="form-outline ">
+                <input type="text" formControlName="Name" class="form-control form-control-lg" />
+                <label class="form-label" for="firstName">Name</label>
+              </div>
+
+              <div class="form-outline ">
+                <input type="text" formControlName="Lastname" class="form-control form-control-lg" />
+                <label class="form-label" for="lastName">Last name</label>
+              </div>
+
+              <div class="form-outline datepicker ">
+                <input type="date" formControlName="BirthDate" class="form-control form-control-lg" id="birthdayDate" />
+                <label for="birthdayDate" class="form-label">Date of birth</label>
+              </div>
+
+              <form>
+                <div class="form-outline">
+                  <input type="file" placeholder="Izaberi sliku" (change)="hasUpload($event)">
+                  <button class="btn btn-primary btn-lg" (click)="changeProfilePicture()" type="submit" >Change photo</button>
+                </div>
+              </form>
+
+            </div>
+            
+            <div class="col-sm">
+                <div class="form-outline ">
+                    <input type="text" formControlName="Username" class="form-control form-control-lg" />
+                    <label class="form-label" for="username">Username</label>
+                 </div>
+
+                <div class="form-outline ">
+                    <input type="text" formControlName="Address" class="form-control form-control-lg" />
+                    <label class="form-label" for="homeAddress">Address</label>
+                </div>
+
+                <div class="form-outline">
+                    <input type="email" readonly="true" formControlName="Email" class="form-control form-control-lg" />
+                    <label class="form-label" for="emailAddress">Email</label>
+                </div>
+
+                <div class="form-outline">
+                    <input type="password" formControlName="Password" class="form-control form-control-lg" />
+                    <label class="form-label" for="password">Password</label>
+                </div>
+    
+                <div class="form-outline">
+                    <input type="password" formControlName="passwordRep" class="form-control form-control-lg" />
+                    <label class="form-label" for="passwordRep">Repeat password</label>
+                </div>
+
+                <button class="btn btn-primary btn-lg" (click)="onSubmit()" type="submit" >Change profile</button>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+      <ng-template #socialUser>
+        <form  [formGroup]="changeSocialUserForm">
+
+          <div class="row">
+
+            <div class="col-sm">
+                <img style="object-fit:cover;" width="450" height="450" [src]="this.profilePicture"/>
+            </div>
+
+            <div class="col-sm">
+
+              <div class="form-outline ">
+                <input type="text" formControlName="Name" class="form-control form-control-lg" />
+                <label class="form-label" for="firstName">Name</label>
+              </div>
+
+              <div class="form-outline ">
+                <input type="text" formControlName="Lastname" class="form-control form-control-lg" />
+                <label class="form-label" for="lastName">Last name</label>
+              </div>
+
+              <div class="form-outline datepicker ">
+                <input type="date" formControlName="BirthDate" class="form-control form-control-lg" id="birthdayDate" />
+                <label for="birthdayDate" class="form-label">Date of birth</label>
+              </div>
+              
+            </div>
+            
+            <div class="col-sm">
+                <div class="form-outline ">
+                    <input type="text" formControlName="Username" class="form-control form-control-lg" />
+                    <label class="form-label" for="username">Username</label>
+                 </div>
+
+                <div class="form-outline ">
+                    <input type="text" formControlName="Address" class="form-control form-control-lg" />
+                    <label class="form-label" for="homeAddress">Address</label>
+                </div>
+
+                <div class="form-outline">
+                    <input type="email" readonly="true" formControlName="Email" class="form-control form-control-lg" />
+                    <label class="form-label" for="emailAddress">Email</label>
+                </div>
+                
+                <button class="btn btn-primary btn-lg" (click)="onSubmit()" type="submit" >Change profile</button>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+  </div>
+    
+    </mat-expansion-panel>
+
+    <ng-container *ngIf="this.role != 'social'">
+
+    <mat-expansion-panel (opened)="panelOpenState1 = true"
+                         (closed)="panelOpenState1 = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Password change  
+        </mat-panel-title>
+        <mat-panel-description>
+          {{panelOpenState1 ? 'hide' : 'show'}} fields    
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        
+      <div class="card-body p-md-3">
+        <form  [formGroup]="changePasswordForm">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-outline">
+                        <input type="password" formControlName="PasswordNew" class="form-control form-control-lg" />
+                        <label class="form-label" for="password">New password</label>
+                    </div>
+        
+                    <div class="form-outline">
+                        <input type="password" formControlName="passwordRepNew" class="form-control form-control-lg" />
+                        <label class="form-label" for="passwordRep">Repeat password</label>
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-outline">
+                        <input type="password" formControlName="PasswordOld" class="form-control form-control-lg" />
+                        <label class="form-label" for="password">Old password</label>
+                    </div>
+        
+                    <div class="form-outline">
+                        <input type="password" formControlName="passwordRepOld" class="form-control form-control-lg" />
+                        <label class="form-label" for="passwordRep">Repeat old password</label>
+                    </div>
+                    <button class="btn btn-primary btn-lg" (click)="onSubmitPass()" type="submit" >Change password</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    
+    </mat-expansion-panel>
+  </ng-container>
+    
+  </mat-accordion>
+  
+<div *ngIf="this.role == 'buyer' || this.role == 'social'">
+    <app-buyer [email]="email"></app-buyer>
+</div>
+<div *ngIf="this.role == 'delivery'">
+    <app-delivery [email]="email"></app-delivery>
+</div>
+<div *ngIf="this.role == 'administrator'">
+    <app-administrator></app-administrator>
+</div>
