@@ -35,7 +35,7 @@
 
                       </div>
                   
-                    <div class="separator">or login with email</div>
+                    <div class="separator" style="color: white;">or login with email</div>
                     <form class="form" [formGroup]="loginForm" accept-charset="UTF-8" id="login-nav">
                       <div class="form-group">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label>
@@ -52,7 +52,7 @@
                       </div>
                     </form>
                   </div>
-                  <div class="bottom text-center">
+                  <div class="bottom text-center" style="color: white;">
                     Don't have an account? <a routerLink="register"><b>Register</b></a>
                   </div>
                 </div>
@@ -73,7 +73,7 @@
                         <img class="profile-img" style="object-fit:cover;" width="70" height="70"
                           [src]='this.profilePicture' />
                       </div>
-                      <div style="float:right;display: inline;padding-top: 10px;">
+                      <div style="float:right;display: inline;padding-top: 10px; color: white;">
                         {{this.name}}<br>
                         Dashboard
                       </div>
@@ -82,7 +82,7 @@
                   <div class="separator"></div>
                   <div class="col-md-12">
                     <a href="" (click)="logOut()" class="dashboard-buttonbottom nav-link" role="button">
-                      <h5 style="width: fit-content; font-size: large;"><i style="width: auto;"
+                      <h5 style="width: fit-content; font-size: large; color: white;"><i style="width: auto; color: white;"
                           class="bi bi-door-open-fill"></i>&nbsp;Log out
                       </h5>
                     </a>

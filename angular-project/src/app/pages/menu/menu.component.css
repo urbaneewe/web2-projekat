@@ -15,9 +15,12 @@
     font-size: 18px;
     margin-top: 20px;
     font-weight: bold;
+    color: whitesmoke;
 }
 
-
+p{
+    color: whitesmoke;
+}
 .price
 {
     width: 100px;
@@ -29,7 +32,7 @@
 }
 .price p
 {
-    color: black;
+    color: whitesmoke;
 }
 .orderbtn
 {
@@ -50,6 +53,6 @@
 
 .orderbtn a:hover 
 {
-    background-color: #e5e5e5;
-    color: black;
+    background-color: orange;
+    color: whitesmoke;
 }
